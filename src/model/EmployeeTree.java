@@ -65,7 +65,52 @@ public class EmployeeTree {
     
     }
     
+    /**
+     * Traverses and prints the Binary Tree in Level-Order (Breadth-First Search)
+     * Displays each level of the store organizational chart in the console
+     * 
+     */
+    public void printLevelOrder() {
+        if (root == null) {
+            System.out.println("The organizational tree is empty.");
+            return;       
+        }
+        
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+        
+        int level = 1;
+        System.out.println("\n==================================================");
+        System.out.println("DEPARTMENT STORE ORGANIZATIONAL CHART");
+        System.out.println("==================================================");
+        
+        //Process nodes level by level
+        while (!queue.isEmpty()) {
+            int levelSize = queue.size();
+            System.out.println("\n--- Level " + level + " ---");
+            
+            
+            for (int i = 0; i < levelSize; i++) {
+                TreeNode current = queue.poll();
+                System.out.println(" └─ " + current.getData().toString());
+                
+                //Enqueue left and right children for the next level
+                if (current.getLeft() != null) {
+                    queue.add(current.getLeft());
+                }
+                
+                if (current.getRight() != null) {
+                    queue.add(current.getRight());
+                }   
+                
+            }
+            
+            level++;
+        
+        }
+        
+        System.out.println("==================================================\n");
     
-    
+    }
     
 }
