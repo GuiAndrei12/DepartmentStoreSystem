@@ -74,6 +74,64 @@ public class EmployeeRepository {
             } 
         }
         
+        /**
+         * Recursive QuickSort algorithm to sort employees by name alphabetically
+         */
+        public void sortEmployeesByName() { 
+            if (employees.size() > 1) { 
+                quickSort(0, employees.size() - 1); //Kick off recursive sorting from index 0 to the last element index
+            } 
+        }
+                
+        /**
+         * Recursive QuickSort function using Divide and Conquer technique.
+         *
+         * @param low Starting index of the sub-array to sort 
+         * @param high Ending index of the sub-array to sort 
+         */
+        private void quickSort(int low, int high) { 
+            if (low < high) { //Stop when sub-array has 0 or 1 element
+                int pivotIndex = partition(low, high); //Rearrange elements around pivot and get pivot's final sorted index
+                quickSort(low, pivotIndex - 1); // Sort elements on the left of the pivot 
+                quickSort(pivotIndex + 1, high); // Sort elements on the right of the pivot 
+            } 
+        }
+        
+        /**
+         * Partition helper method (Lomuto Partition Scheme)
+         * Chooses the last element as pivot, places smaller elements to its left and larger elements to its right
+         * @param low Lower bound index
+         * @param high Upper bound index (pivot position)
+         * @return Final index position where pivot is now correctly placed
+         */
+        private int partition(int low, int high) { 
+            String pivot = employees.get(high).getName(); //Pick the last employee's name in current range as pivot
+            int i = low - 1;
+            
+            //Compare each element with the pivot
+            for (int j = low; j < high; j++) { 
+                //Compare names alphabetically ignoring case (A-Z order)
+                //If current name comes before or is equal to pivot name, swap objects
+                if (employees.get(j).getName().compareToIgnoreCase(pivot) <= 0){ 
+                    i++;
+                    
+                    // Swap employees[i] and employees[j] 
+                    Employee temp = employees.get(i); 
+                    employees.set(i, employees.get(j)); 
+                    employees.set(j, temp); 
+                } 
+            }
+
+            // Final step: Swap pivot (at index high) with element at position (i + 1) 
+            // Places pivot in its correct sorted position in the list 
+            Employee temp = employees.get(i + 1); 
+            employees.set(i + 1, employees.get(high)); 
+            employees.set(high, temp);
+            
+            
+            //Return the correct index position where pivot now resides
+            return i + 1;
+        }
         
         
     
