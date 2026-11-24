@@ -133,6 +133,84 @@ public class EmployeeRepository {
             return i + 1;
         }
         
+        /**
+         * Recursive Binary Search algorithm to search for an employee by full name
+         * Ensures the list is sorted first, which is a mandatory requirement for Binary Search
+         * 
+         * @param targetName The full name of the employee to look up
+         * @return Employee object if found, or null if no match exists 
+         */
+        public Employee searchEmployeeByName(String targetName) {
+        
+            //Ensure list is sorted before performing Binary Search
+            sortEmployeesByName();
+            
+            //Execute recursive binary search across the full array range
+            int index = binarySearchRecursive(0, employees.size() - 1, targetName.trim());
+            
+            //If index is not -1, it means the employee was found in the list
+            if (index != -1) {
+                return employees.get(index);
+            }
+            return null;
+        
+        }
+        
+        /**
+         * Recursive Binary Search implementation (Divide and Conquer strategy)
+         * Compares the target name against the middle element and cuts the search space in half
+         * 
+         * @param left Starting index boundary
+         * @param right Ending index boundary
+         * @param targetName Name we are searching for
+         * @return Index position of found employee, or -1 if not found
+         */
+        private int binarySearchRecursive(int left, int right, String targetName) { 
+            if (left > right) { 
+                return -1; //Element not found 
+            }
+            
+            //Calculate middle index position
+            int mid = left + (right - left) / 2;
+            
+            //Get the employee name at the middle position
+            String midName = employees.get(mid).getName();
+            
+            //Compare target name with middle name alphabetically (case-insensitive)
+            int comparison = targetName.compareToIgnoreCase(midName);
+            
+            if (comparison == 0) { 
+                return mid; //Target found at index mid
+            } else if (comparison < 0) { 
+                return binarySearchRecursive(left, mid - 1, targetName); //Search left half 
+            } else { 
+                return binarySearchRecursive(mid + 1, right, targetName); //Search right half 
+            } 
+        }
+        
+        /**
+         * Validates if a department exists in the official valid list
+         */
+        public boolean isValidDepartment(String department) { 
+            for (String validDept : VALID_DEPARTMENTS) { 
+                if (validDept.equalsIgnoreCase(department.trim())) { 
+                    return true; 
+                } 
+            } 
+            return false; 
+        }
+        
+        /**
+         * Adds a new employee record after validating input
+         */
+        public boolean addEmployee(Employee newEmp) { 
+            if (isValidDepartment(newEmp.getDepartment())) { //Ensure department is valid before inserting record
+                employees.add(newEmp); 
+                return true; 
+            } 
+            return false; 
+        }
+        
         
     
 }
