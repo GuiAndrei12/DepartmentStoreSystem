@@ -13,13 +13,13 @@ package model;
 public class Employee {
     
     private String name;
-    private String managerType;
+    private String position;
     private String department;
 
     //Constructor
     public Employee(String name, String managerType, String department) {
         this.name = name;
-        this.managerType = managerType;
+        this.position = position;
         this.department = department;
     }
     
@@ -32,12 +32,12 @@ public class Employee {
         this.name = name;
     }
     
-    public String getManagerType() {
-        return managerType;
+    public String getPosition() {
+        return position;
     }
     
-    public void setManagerType(String managerType) {
-        this.managerType = managerType;
+    public void setPosition(String position) {
+        this.position = position;
     }
 
     public String getDepartment() {
@@ -51,7 +51,7 @@ public class Employee {
     //Formatted String representation for terminal display
     @Override
     public String toString() {
-        return String.format("Name: %-22s | Position: %-20s | Dept: %-15s", name, managerType, department);
+        return String.format("Name: %-22s | Position: %-20s | Dept: %-15s", name, position, department);
     }
     
 }

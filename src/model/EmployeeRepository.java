@@ -81,10 +81,10 @@ public class EmployeeRepository {
             if (employees.size() > 1) { 
                 quickSort(0, employees.size() - 1); //Kick off recursive sorting from index 0 to the last element index
             } 
-        }
-                
+        }    
+        
         /**
-         * Recursive QuickSort function using Divide and Conquer technique.
+         * Recursive QuickSort function using Divide and Conquer technique
          *
          * @param low Starting index of the sub-array to sort 
          * @param high Ending index of the sub-array to sort 
